@@ -365,4 +365,18 @@ $(document).ready(function () {
       },
     };
   lineItem.init();
+
+  // Search Input
+  let searchInputSelector = ".js-search-input",
+    searchSubmitSelector = ".js-search-submit",
+    onSearchInputKeyup = function (event) {
+      let $form = $(this).closest("form"),
+        $button = $form.find(searchSubmitSelector),
+        shouldDisableButton = this.value.length === 0;
+
+      console.log(shouldDisableButton);
+      $button.prop("disabled", shouldDisableButton);
+    };
+
+  $(document).on("keyup", searchInputSelector, onSearchInputKeyup);
 });
