@@ -14,13 +14,10 @@
   </td>
   <td>{{ item.price | money }}</td>
   <td>
-    <input
-      type="number"
-      name="updates[]"
-      id="updates_{{ item.key }}"
-      value="{{ item.quantity }}"
-      min="0"
-    />
+    {%- comment -%} Quantity Picker {%- endcomment -%} {% assign quantity_id =
+    'update_' | append: item.key %} {% include 'quantity-picker' with name:
+    'updates[]', id: quantity_id, value: item.quantity, min:0, max:
+    item.variant.inventory_quantity %}
   </td>
   <td>
     {% if item.original_line_price != item.line_price %}{{
