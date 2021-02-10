@@ -1,29 +1,37 @@
-<tr>
-  <td>
-    <a href="{{ item.url | within: collections.all }}">
+<div class="line-item">
+  <div class="line-image">
       <img
-        src="{{ item | img_url: 'medium' }}"
+        src="{{ item | img_url: '80x80', crop: 'center' }}"
         alt="{{ item.title | escape }}"
       />
-    </a>
-  </td>
-  <td>
-    <a href="{{ item.url }}">{{ item.product.title }}</a>
-    {{ item.variant.title }}
-    <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">remove</a>
-  </td>
-  <td>{{ item.price | money }}</td>
-  <td>
+  </div>
+
+  <div class="line-info">
+    <div class="info-content">
+      <div class="line-title">
+        <a href="{{ item.url }}">{{ item.product.title }}</a>
+        {{ item.variant.title }}
+        {% if item.quantity > 1 %}
+          <span class="quantity">
+            x {{ item.quantity }}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="line-price">
+      {{item.line-price | money }}{% if item.quantity > 1 %}
+        {{item.price | money}}/ea
+      {% endif %}
+    </div>
+
+    <div class="info-actions">
     {%- comment -%} Quantity Picker {%- endcomment -%} {% assign quantity_id =
     'update_' | append: item.key %} {% include 'quantity-picker' with name:
     'updates[]', id: quantity_id, value: item.quantity, min:0, max:
     item.variant.inventory_quantity, field_class: 'js-line-quantity' %}
-  </td>
-  <td>
-    {% if item.original_line_price != item.line_price %}{{
-      item.original_line_price | money
-    }}{% endif %}
-    {{ item.line_price | money }}
-    {% for discount in item.discounts %}{{ discount.title }}{% endfor %}
-  </td>
-</tr>
+    <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">remove</a>
+    </div>  
+  </div>
+</div>
+

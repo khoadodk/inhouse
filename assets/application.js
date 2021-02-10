@@ -108,14 +108,15 @@ $(document).ready(function () {
       let variants = JSON.parse(
           decodeURIComponent($form.attr("data-variants"))
         ),
-        formData = $form.serializeArray();
-      // Shopify has variant.option1, variant.option2, variant.option3  by default
-      formOptions = {
-        option1: null,
-        option2: null,
-        option3: null,
-      };
-      let selectedVariant = null;
+        formData = $form.serializeArray(),
+        // Shopify has variant.option1, variant.option2, variant.option3  by default
+        formOptions = {
+          option1: null,
+          option2: null,
+          option3: null,
+        },
+        selectedVariant = null;
+
       $.each(formData, function (index, item) {
         if (item.name.indexOf("option") !== -1) {
           formOptions[item.name] = item.value;
@@ -205,7 +206,7 @@ $(document).ready(function () {
     },
 
     onCartUpdated: function () {
-      // Delay changes
+      // Delay changes on quantity pick
       let $miniCartFieldset = $(".js-cart-fieldset");
 
       $miniCartFieldset.prop("disabled", true);
