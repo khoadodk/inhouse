@@ -28,7 +28,7 @@ Variables: option, option_name, type, selected
                 <input class="variant-radio" type="radio" id="{{ radio_id }}" name="{{ option_name }}" value="{{ value }}" {% if value == selected %} checked {% endif %}>
                 <label for="{{ radio_id }}">
                     {% if force_colors == true %}
-                        {% include 'color-swatch' with color: value %}
+                        {% include 'option-color' with color: value %}
                     {% else %}
                         {{ value }}
                     {% endif %}

@@ -1,6 +1,6 @@
 {% if settings.show_multiple_currencies %}
-<div class="currency-picker">
-  <label class="currency-picker-label">Pick a currency</label>
+<div class="currency-picker styled-select">
+  <label class="currency-picker-label visually-hidden">Pick a currency</label>
 
   <select class="currency-picker-select" name="currencies">
     {% assign codes =
@@ -18,6 +18,6 @@
     {% endif %} {% endfor %}
   </select>
 
-  {% include 'inline-icon' wit svg: 'icon-arrow-down.svg' %}
+  {% include 'inline-icon' wit svg: 'icon-arrow-down.svg', class: 'current-color-stroke' %}
 </div>
 {% endif %}

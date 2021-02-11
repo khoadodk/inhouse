@@ -55,9 +55,9 @@
         {{ product.variants.first.id}}
     {% endif %}>
 
-  <span class="js-price" data-default-price="{{product.price | money}}">{{ current_variant.price | money }}</span>
-
-  <button type="submit" name="add" id="add-to-cart-button" {% if can_add_to_cart != true %}
-      disabled
-  {% endif %} >Add to cart</button>
+  <button id="add-to-cart-button" class="button-cta" name="add" type="submit" {% if can_add_to_cart != true %} disabled {% endif %}>
+        {{ 'product.form.submit' | t }}
+        &ndash;
+        <span class="js-price" data-default-price="{{ product.prize | money }}">{{ current_variant.price | money }}</span>
+    </button>
 </form>

@@ -179,65 +179,69 @@
 
 <div class="content-wrap">
     {% for block in section.blocks %}
-        <div class="content-block-{{ block.type }}" {{ block.shopify_attributes }}  >
-            {% case block.type %}
-                {%- comment -%}Start Collection Block{%- endcomment -%}
-                {% when 'collection' %}
-                    {% assign collection = collections[block.settings.collection] %}
-                    
-                    {%- comment -%} COLLECTION-LIST{%- endcomment -%}
-                    <div class="collection-list-wrap wrapper">
-                        {% include 'collection-list' with title: block.settings.title, content: block.settings.content, show_button: block.settings.show_button, button_text: block.settings.button_text, max_products: block.settings.max_products %}
-                    </div>
+    <div class="content-block-{{ block.type }}" {{ block.shopify_attributes }}>
+        {% case block.type %}
+        {% when 'collection' %}
+        {% assign collection = collections[block.settings.collection] %}
 
-                    {% for product in collection.products limit: block.settings.max_products %}
-                        {% include 'product-card' %}
-                    {% endfor %}
-                {%- comment -%}End Collection Block{%- endcomment -%}
-                {%- comment -%}Start Image/Text Block{%- endcomment -%}
-                {% when 'image_text' %}
-                    <div class="image-text direction-{{ block.settings.direction }}}">
-                        {% if block.settings.image != blank %}
-                            <div class="block-image">
-                                <img src="{{ block.settings.image | img_url: '600x'  }}" alt="{{ block.settings.image.alt }}">
-                            </div>
-                        {% endif %}
 
-                        <div class="block-content">
-                            <h3>{{ block.settings.title }}</h3>
-                            {% if block.settings.content != blank %}
-                                <p>{{block.settings.content}}</p>
-                            {% endif %}
-
-                            {% if block.settings.show_button and block.settings.button_url != blank  %}
-                                <a href="{{ block.settings.button_url }}" class="button" >
-                                {% if block.settings.button_text != blank %}
-                                    {{block.settings.button_text}}
-                                {% else %}
-                                    {{ 'general.shop.shop_now' | t }}
-                                {% endif %}
-                                </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                {%- comment -%}End Image/Text Block{%- endcomment -%}
-                {%- comment -%}Start Quote Block{%- endcomment -%}
-                {% when 'quote' %}
-                    <blockquote>
-                        <p>{{ block.settings.content | newline_to_br }}</p>
-                        <cite>{{ block.settings.source | newline_to_br }}</cite>
-                    </blockquote>
-                    {% if block.settings.show_button and block.settings.button_url != blank  %}
-                        <a href="{{ block.settings.button_url }}" class="button" >
-                        {% if block.settings.button_text != blank %}
-                            {{block.settings.button_text}}
-                        {% else %}
-                            {{ 'general.shop.shop_now' | t }}
-                        {% endif %}
-                        </a>
-                    {% endif %}
-                {%- comment -%}End Quote Block{%- endcomment -%}
-                {% endcase %}
+        <div class="collection-list-wrap wrapper">
+        {% include 'collection-list' with title: block.settings.title, content: block.settings.content, show_button: block.settings.show_button, button_text: block.settings.button_text, max_products: block.settings.max_products %}
         </div>
+
+        {% when 'image_text' %}
+
+        <div class="image-text direction-{{ block.settings.direction }} bgcolor-{{ block.settings.bgcolor }} {% if block.settings.bgcolor == 'black' %}text-white{% endif %}">
+
+            {% if block.settings.image != blank %}
+            <div class="block-image">
+                <img src="{{ block.settings.image | img_url: '1280x' }}" alt="{{ block.settings.image.alt }}">
+            </div>
+            {% endif %}
+
+            <div class="block-content">
+                <div class="block-content-inner valign-center">
+                    <h3>{{ block.settings.title }}</h3>
+                    
+                    {% if block.settings.content != blank %}
+                    <p>{{ block.settings.content }}</p>
+                    {% endif %}
+                    
+                    {% if block.settings.show_button and block.settings.button_url != blank %}
+                    <a href="{{ block.settings.button_url }}" class="button">
+                        {% if block.settings.button_text != blank %}
+                        {{ block.settings.button_text }}
+                        {% endif %}
+                    </a>
+                    {% endif %}
+                </div>
+
+            </div>
+       
+
+        </div>
+
+        {% when 'quote' %}
+        <blockquote>
+            <p class="p-large"> 
+                {{ block.settings.content | newline_to_br }}
+            </p>
+            <cite class="h3">
+                {{ block.settings.source | newline_to_br }}
+            </cite>
+        </blockquote>
+
+        {% if block.settings.show_button and block.settings.button_url != blank %}
+        <a href="{{ block.settings.button_url }}" class="button">
+            {% if block.settings.button_text != blank %}
+            {{ block.settings.button_text }}
+         
+            {% endif %}
+        </a>
+        {% endif %}
+       
+
+        {%endcase%}
+    </div>
     {% endfor %}
 </div>
