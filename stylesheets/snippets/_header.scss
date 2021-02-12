@@ -6,7 +6,7 @@
   left: 0;
   padding: $offset-global;
   background: $white;
-  z-index: 1;
+  z-index: 9999;
   @include flex-space-between;
 
   .link-logo {
